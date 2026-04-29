@@ -1,43 +1,50 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '@/context/AuthContext'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Scissors, Loader2 } from 'lucide-react'
-import type { ApiError } from '@/types'
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Scissors, Loader2 } from "lucide-react";
+import type { ApiError } from "@/types";
 
 export default function LoginPage() {
-  const { login } = useAuth()
-  const navigate = useNavigate()
-  
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError(null)
-    setIsLoading(true)
+    e.preventDefault();
+    setError(null);
+    setIsLoading(true);
 
     try {
-      await login({ email, password })
+      await login({ email, password });
       // The AuthContext will set the user, then we can check role
-      const savedUser = localStorage.getItem('user')
+      const savedUser = localStorage.getItem("user");
       if (savedUser) {
-        const user = JSON.parse(savedUser)
-        navigate(user.role === 'owner' ? '/owner' : '/client')
+        const user = JSON.parse(savedUser);
+        navigate(user.role === "owner" ? "/owner" : "/client");
       }
     } catch (err) {
-      const apiError = err as ApiError
-      setError(apiError.message || 'Error al iniciar sesión')
+      const apiError = err as ApiError;
+      setError(apiError.message || "Error al iniciar sesión");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-muted/50 px-4">
@@ -59,7 +66,7 @@ export default function LoginPage() {
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
-            
+
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -72,7 +79,7 @@ export default function LoginPage() {
                 disabled={isLoading}
               />
             </div>
-            
+
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label htmlFor="password">Contraseña</Label>
@@ -94,7 +101,7 @@ export default function LoginPage() {
               />
             </div>
           </CardContent>
-          
+
           <CardFooter className="flex flex-col gap-4">
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? (
@@ -103,13 +110,16 @@ export default function LoginPage() {
                   Iniciando sesión...
                 </>
               ) : (
-                'Iniciar sesión'
+                "Iniciar sesión"
               )}
             </Button>
-            
+
             <p className="text-center text-sm text-muted-foreground">
-              ¿No tienes cuenta?{' '}
-              <Link to="/register" className="font-medium text-primary hover:underline">
+              ¿No tienes cuenta?{" "}
+              <Link
+                to="/register"
+                className="font-medium text-primary hover:underline"
+              >
                 Regístrate
               </Link>
             </p>
@@ -117,5 +127,5 @@ export default function LoginPage() {
         </form>
       </Card>
     </div>
-  )
+  );
 }
