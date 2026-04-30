@@ -91,7 +91,7 @@ export default function BookAppointmentPage() {
         description: 'Tu turno ha sido reservado exitosamente.',
       })
 
-      navigate('/client/appointments')
+      navigate('/user/appointments')
     } catch (err) {
       const apiError = err as ApiError
       setError(apiError.message || 'Error al reservar el turno')

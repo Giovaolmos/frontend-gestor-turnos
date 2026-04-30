@@ -29,7 +29,7 @@ function ProtectedRoute({
   allowedRole,
 }: {
   children: React.ReactNode;
-  allowedRole: "client" | "owner";
+  allowedRole: "user" | "owner";
 }) {
   const { user, isLoading } = useAuth();
 
@@ -47,7 +47,7 @@ function ProtectedRoute({
 
   if (user.role !== allowedRole) {
     return (
-      <Navigate to={user.role === "owner" ? "/owner" : "/client"} replace />
+      <Navigate to={user.role === "owner" ? "/owner" : "/user"} replace />
     );
   }
 
@@ -64,9 +64,9 @@ function App() {
 
       {/* Client Routes */}
       <Route
-        path="/client"
+        path="/user"
         element={
-          <ProtectedRoute allowedRole="client">
+          <ProtectedRoute allowedRole="user">
             <ClientLayout />
           </ProtectedRoute>
         }

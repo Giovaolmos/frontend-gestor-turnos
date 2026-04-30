@@ -71,7 +71,7 @@ export default function ServicesPage() {
                     ${service.price.toLocaleString()}
                   </span>
                 </div>
-                <Link to={`/client/book/${service.id}`}>
+                <Link to={`/user/book/${service.id}`}>
                   <Button className="w-full gap-2">
                     <Calendar className="h-4 w-4" />
                     Reservar turno

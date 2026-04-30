@@ -22,10 +22,10 @@ import { useState } from 'react'
 import { cn } from '@/lib/utils'
 
 const navItems = [
-  { to: '/client', icon: Home, label: 'Inicio', end: true },
-  { to: '/client/services', icon: Scissors, label: 'Servicios' },
-  { to: '/client/book', icon: Calendar, label: 'Reservar' },
-  { to: '/client/appointments', icon: History, label: 'Mis Turnos' },
+  { to: '/user', icon: Home, label: 'Inicio', end: true },
+  { to: '/user/services', icon: Scissors, label: 'Servicios' },
+  { to: '/user/book', icon: Calendar, label: 'Reservar' },
+  { to: '/user/appointments', icon: History, label: 'Mis Turnos' },
 ]
 
 export default function ClientLayout() {
@@ -44,7 +44,7 @@ export default function ClientLayout() {
       <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           {/* Logo */}
-          <NavLink to="/client" className="flex items-center gap-2">
+          <NavLink to="/user" className="flex items-center gap-2">
             <Scissors className="h-6 w-6 text-primary" />
             <span className="text-xl font-bold">TurnoApp</span>
           </NavLink>

@@ -44,7 +44,7 @@ export default function RegisterPage() {
 
     try {
       await register({ name, email, password, phone, role })
-      navigate(role === 'owner' ? '/owner' : '/client')
+      navigate(role === 'owner' ? '/owner' : '/user')
     } catch (err) {
       const apiError = err as ApiError
       setError(apiError.message || 'Error al registrarse')

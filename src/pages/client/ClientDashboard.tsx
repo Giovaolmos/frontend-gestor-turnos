@@ -64,7 +64,7 @@ export default function ClientDashboard() {
             <CardDescription className="mt-1 text-xs sm:text-sm">
               Agenda un nuevo turno para el servicio que necesites
             </CardDescription>
-            <Link to="/client/book">
+            <Link to="/user/book">
               <Button className="mt-3 w-full gap-2 sm:mt-4 sm:w-auto" size="sm">
                 Reservar ahora
                 <ArrowRight className="h-4 w-4" />
@@ -84,7 +84,7 @@ export default function ClientDashboard() {
             <CardDescription className="mt-1 text-xs sm:text-sm">
               Explora todos los servicios disponibles
             </CardDescription>
-            <Link to="/client/services">
+            <Link to="/user/services">
               <Button className="mt-3 w-full gap-2 sm:mt-4 sm:w-auto" size="sm" variant="outline">
                 Ver servicios
                 <ArrowRight className="h-4 w-4" />
@@ -104,7 +104,7 @@ export default function ClientDashboard() {
             <CardDescription className="mt-1 text-xs sm:text-sm">
               Revisa tu historial y próximos turnos
             </CardDescription>
-            <Link to="/client/appointments">
+            <Link to="/user/appointments">
               <Button className="mt-3 w-full gap-2 sm:mt-4 sm:w-auto" size="sm" variant="outline">
                 Ver historial
                 <ArrowRight className="h-4 w-4" />
@@ -122,7 +122,7 @@ export default function ClientDashboard() {
               <CardTitle>Próximos turnos</CardTitle>
               <CardDescription>Tus reservas pendientes y confirmadas</CardDescription>
             </div>
-            <Link to="/client/appointments">
+            <Link to="/user/appointments">
               <Button variant="ghost" size="sm" className="gap-2">
                 Ver todos
                 <ArrowRight className="h-4 w-4" />
@@ -139,7 +139,7 @@ export default function ClientDashboard() {
             <div className="flex h-32 flex-col items-center justify-center text-center">
               <Calendar className="mb-2 h-10 w-10 text-muted-foreground" />
               <p className="text-muted-foreground">No tienes turnos próximos</p>
-              <Link to="/client/book">
+              <Link to="/user/book">
                 <Button variant="link" className="mt-2">
                   Reservar un turno
                 </Button>

@@ -8,10 +8,10 @@ import type { AuthResponse, ApiResponse } from "@/types";
 export const login = async (
   credentials: ILoginCredentials,
 ): Promise<AuthResponse> => {
-  const response = await apiClient.post<ApiResponse<AuthResponse>>(
+  const response = await apiClient.post<AuthResponse>(
     "/auth/login",
     credentials,
   );
   console.log("login response: ", response);
-  return response.data;
+  return response.data; // Retornamos directamente response.data, ya que el backend no anida los datos en data.data
 };

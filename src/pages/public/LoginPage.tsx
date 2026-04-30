@@ -36,7 +36,7 @@ export default function LoginPage() {
       const savedUser = localStorage.getItem("user");
       if (savedUser) {
         const user = JSON.parse(savedUser);
-        navigate(user.role === "owner" ? "/owner" : "/client");
+        navigate(user.role === "owner" ? "/owner" : "/user");
       }
     } catch (err) {
       const apiError = err as ApiError;
