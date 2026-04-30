@@ -14,3 +14,4 @@ export { servicesApi } from "./services.api";
 export { appointmentsApi } from "./appointments.api";
 export { scheduleApi } from "./schedule.api";
 export { earningsApi } from "./earnings.api";
+export { professionalsApi } from "./professionals.api";

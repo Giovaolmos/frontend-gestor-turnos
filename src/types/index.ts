@@ -15,6 +15,13 @@ export interface AuthResponse {
   token: string;
 }
 
+// ==================== PROFESSIONAL TYPES ====================
+export interface Professional {
+  id: string;
+  name: string;
+  email: string;
+}
+
 // ==================== SERVICE TYPES ====================
 export interface Service {
   id: string;
@@ -26,6 +33,7 @@ export interface Service {
   isActive: boolean;
   createdAt: string;
 }
+
 
 export interface CreateServiceData {
   name: string;
