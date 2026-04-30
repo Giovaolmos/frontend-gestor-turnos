@@ -1,6 +1,8 @@
 import { ILoginCredentials } from "@/types/auth/ILoginCredentials";
 import apiClient from "../client";
-import type { AuthResponse, ApiResponse } from "@/types";
+import type { AuthResponse } from "@/types";
+
+export const URL_AUTH = "/auth";
 
 /**
  * Login user
@@ -9,9 +11,8 @@ export const login = async (
   credentials: ILoginCredentials,
 ): Promise<AuthResponse> => {
   const response = await apiClient.post<AuthResponse>(
-    "/auth/login",
+    `${URL_AUTH}/login`,
     credentials,
   );
-  console.log("login response: ", response);
-  return response.data; // Retornamos directamente response.data, ya que el backend no anida los datos en data.data
+  return response.data;
 };

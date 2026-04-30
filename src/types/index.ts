@@ -1,5 +1,5 @@
 // ==================== USER TYPES ====================
-export type UserRole = "client" | "owner";
+export type UserRole = "user" | "owner";
 
 export interface User {
   id: string;
@@ -13,14 +13,6 @@ export interface User {
 export interface AuthResponse {
   user: User;
   token: string;
-}
-
-export interface RegisterCredentials {
-  email: string;
-  password: string;
-  name: string;
-  phone?: string;
-  role: UserRole;
 }
 
 // ==================== SERVICE TYPES ====================
