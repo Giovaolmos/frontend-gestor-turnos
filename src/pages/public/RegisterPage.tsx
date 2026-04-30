@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,9 +13,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Scissors, Loader2, User, Store } from "lucide-react";
-import type { ApiError, UserRole } from "@/types";
+import { Scissors, Loader2 } from "lucide-react";
+import type { ApiError } from "@/types";
 import {
   Select,
   SelectContent,
@@ -27,11 +26,7 @@ import {
 export default function RegisterPage() {
   const { register } = useAuth();
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
 
-  const initialRole = (searchParams.get("role") as UserRole) || "user";
-
-  const [role, setRole] = useState<UserRole>(initialRole);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -68,13 +63,6 @@ export default function RegisterPage() {
     setIsLoading(true);
 
     try {
-      console.log("Registering with data:", {
-        name,
-        email,
-        password,
-        phone: formattedPhone,
-        confirmPassword,
-      });
       await register({
         name,
         email,
@@ -82,7 +70,7 @@ export default function RegisterPage() {
         phone: formattedPhone,
         confirmPassword,
       });
-      navigate(role === "owner" ? "/owner" : "/user");
+      navigate("/user");
     } catch (err) {
       const apiError = err as ApiError;
       setError(apiError.message || "Error al registrarse");
@@ -101,7 +89,7 @@ export default function RegisterPage() {
           </Link>
           <CardTitle className="text-2xl">Crear cuenta</CardTitle>
           <CardDescription>
-            Regístrate para comenzar a usar TurnoApp
+            Regístrate para comenzar a reservar turnos
           </CardDescription>
         </CardHeader>
 
@@ -113,40 +101,12 @@ export default function RegisterPage() {
               </Alert>
             )}
 
-            {/* Role Selection */}
-            <Tabs value={role} onValueChange={(v) => setRole(v as UserRole)}>
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="client" className="gap-2">
-                  <User className="h-4 w-4" />
-                  Cliente
-                </TabsTrigger>
-                <TabsTrigger value="owner" className="gap-2">
-                  <Store className="h-4 w-4" />
-                  Negocio
-                </TabsTrigger>
-              </TabsList>
-              <TabsContent
-                value="client"
-                className="mt-4 text-sm text-muted-foreground"
-              >
-                Regístrate como cliente para reservar turnos
-              </TabsContent>
-              <TabsContent
-                value="owner"
-                className="mt-4 text-sm text-muted-foreground"
-              >
-                Regístrate como negocio para gestionar tus servicios y turnos
-              </TabsContent>
-            </Tabs>
-
             <div className="space-y-2">
-              <Label htmlFor="name">
-                {role === "owner" ? "Nombre del negocio" : "Nombre completo"}
-              </Label>
+              <Label htmlFor="name">Nombre completo</Label>
               <Input
                 id="name"
                 type="text"
-                placeholder={role === "owner" ? "Mi Peluquería" : "Juan Pérez"}
+                placeholder="Juan Pérez"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
