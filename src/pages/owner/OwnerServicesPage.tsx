@@ -39,11 +39,16 @@ export default function OwnerServicesPage() {
   const [serviceToDelete, setServiceToDelete] = useState<Service | null>(null)
 
   // Form state
-  const [formData, setFormData] = useState<CreateServiceData>({
+  const [formData, setFormData] = useState<{
+    name: string;
+    description: string;
+    duration: number | '';
+    price: number | '';
+  }>({
     name: '',
     description: '',
     duration: 30,
-    price: 0,
+    price: '',
   })
 
   useEffect(() => {
@@ -55,7 +60,7 @@ export default function OwnerServicesPage() {
       name: '',
       description: '',
       duration: 30,
-      price: 0,
+      price: '',
     })
     setEditingService(null)
   }
@@ -76,7 +81,10 @@ export default function OwnerServicesPage() {
   }
 
   const handleSubmit = async () => {
-    if (!formData.name || !formData.description || formData.duration <= 0 || formData.price < 0) {
+    const durationVal = typeof formData.duration === 'number' ? formData.duration : 0;
+    const priceVal = typeof formData.price === 'number' ? formData.price : -1;
+
+    if (!formData.name || durationVal <= 0 || priceVal < 0) {
       toast({
         title: 'Error',
         description: 'Por favor completa todos los campos correctamente',
@@ -85,16 +93,23 @@ export default function OwnerServicesPage() {
       return
     }
 
+    const submitData: CreateServiceData = {
+      name: formData.name,
+      description: formData.description,
+      duration: durationVal,
+      price: priceVal,
+    }
+
     setIsSubmitting(true)
     try {
       if (editingService) {
-        await updateService(editingService.id, formData)
+        await updateService(editingService.id, submitData)
         toast({
           title: 'Servicio actualizado',
           description: 'El servicio ha sido actualizado exitosamente.',
         })
       } else {
-        await createService(formData)
+        await createService(submitData)
         toast({
           title: 'Servicio creado',
           description: 'El nuevo servicio ha sido creado exitosamente.',
@@ -215,7 +230,7 @@ export default function OwnerServicesPage() {
                     min={5}
                     step={5}
                     value={formData.duration}
-                    onChange={(e) => setFormData({ ...formData, duration: parseInt(e.target.value) || 0 })}
+                    onChange={(e) => setFormData({ ...formData, duration: e.target.value === '' ? '' : parseInt(e.target.value) || 0 })}
                   />
                 </div>
 
@@ -226,7 +241,7 @@ export default function OwnerServicesPage() {
                     type="number"
                     min={0}
                     value={formData.price}
-                    onChange={(e) => setFormData({ ...formData, price: parseFloat(e.target.value) || 0 })}
+                    onChange={(e) => setFormData({ ...formData, price: e.target.value === '' ? '' : parseFloat(e.target.value) || 0 })}
                   />
                 </div>
               </div>
